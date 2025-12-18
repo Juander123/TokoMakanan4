@@ -26,7 +26,7 @@ class _BerandaPage extends State<BerandaPage>{
   final List<FoodModel> _foodList = [
     FoodModel(
       title: "Nasi Goreng", 
-      ImageURl: "../../assets/images/nasigoreng.jpg", 
+      ImageURl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRKnuYfGJkzDkDiFLkVgNgQb-EVzserHgLoQ&s", 
       harga: "Rp15.000", 
       kategri: "Makanan", 
       rating: "4.8", 
@@ -35,7 +35,7 @@ class _BerandaPage extends State<BerandaPage>{
     ),
     FoodModel(
       title: "Mie Goreng", 
-      ImageURl: "../../assets/images/miegoreng.jpg", 
+      ImageURl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMCFQUrE5kEgi8DJnQu5li_8T1CjmACPJNrg&s", 
       harga: "Rp15.000", 
       kategri: "Makanan", 
       rating: "4.7", 
@@ -43,8 +43,8 @@ class _BerandaPage extends State<BerandaPage>{
       jumlah: 0,
     ),
     FoodModel(
-      title: "Kwetiau", 
-      ImageURl: "../../assets/images/kwetiau.jpg", 
+      title: "Kwetiau",   
+      ImageURl: "https://assets.unileversolutions.com/recipes-v2/257879.jpg", 
       harga: "Rp15.000", 
       kategri: "Makanan", 
       rating: "4.8", 
@@ -53,16 +53,16 @@ class _BerandaPage extends State<BerandaPage>{
     ),
     FoodModel(
       title: "Bakso", 
-      ImageURl: "../../assets/images/bakso.jpg", 
+      ImageURl: "https://assets.unileversolutions.com/recipes-v2/245281.jpg", 
       harga: "Rp15.000", 
       kategri: "Makanan", 
-      rating: "4.8", 
+      rating: "4.8",  
       sold: "74 Terjual",
       jumlah: 0,
     ),
     FoodModel(
       title: "Es Jeruk", 
-      ImageURl: "../../assets/images/es-jeruk.jpg", 
+      ImageURl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgi6-SFK7EB-_ApAHdDXqkJoFf-LN6ms8MUg&s", 
       harga: "Rp5.000", 
       kategri: "Minuman", 
       rating: "4.8", 
@@ -71,7 +71,7 @@ class _BerandaPage extends State<BerandaPage>{
     ),
     FoodModel(
       title: "Es Kopi Susu", 
-      ImageURl: "../../assets/images/es-kopi-susu.jpg", 
+      ImageURl: "https://i0.wp.com/www.gabag-indonesia.com/wp-content/uploads/2024/11/Kreasi-Resep-Es-Kopi-Susu-Gula-Aren-Kekinian-yang-Lezat-3.png?resize=853%2C545&ssl=1", 
       harga: "Rp8.000", 
       kategri: "Minuman", 
       rating: "4.8", 
@@ -80,7 +80,7 @@ class _BerandaPage extends State<BerandaPage>{
     ),
     FoodModel(
       title: "Teh", 
-      ImageURl: "../../assets/images/teh.jpg", 
+      ImageURl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtZJf5Ext31aKykYwMkEpJEHv2Y76imiEVPA&s", 
       harga: "Rp5.000", 
       kategri: "Minuman", 
       rating: "4.8", 
@@ -89,7 +89,7 @@ class _BerandaPage extends State<BerandaPage>{
     ),
     FoodModel(
       title: "Jus", 
-      ImageURl: "../../assets/images/jus.jpg", 
+      ImageURl: "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/3a6c8584-4fca-45ee-a68e-e33fa8d8f0d4_Go-Biz_20210916_212919.jpeg", 
       harga: "Rp10.000", 
       kategri: "Minuman", 
       rating: "4.8", 
@@ -313,7 +313,7 @@ class _FoodCardState extends State<FoodCard> {
       //Gambar Konten
       ClipRRect(
         borderRadius: BorderRadius.circular(10),
-        child: Image.asset(
+        child: Image.network(
           widget.food.ImageURl,
           width: 100,
           height: 110,
