@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../pagesProfile/editProfile.dart';
 
 class ProfilePage extends StatelessWidget{
   const ProfilePage ({super.key});
@@ -158,7 +159,9 @@ class MainContentProfile extends StatelessWidget{
                   ),
                   IconButton(
                     onPressed: (){
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return EditProfile();
+                      }));
                     }, 
                     icon: Icon(Icons.arrow_right)
                   ),

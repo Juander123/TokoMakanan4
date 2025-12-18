@@ -27,7 +27,7 @@ class EditProfile extends StatelessWidget{
         
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,  
-          mainAxisAlignment: MainAxisAlignment.center,
+          
           children: [
             Container(
               margin: EdgeInsets.symmetric(vertical: 40,horizontal: 20),
@@ -44,12 +44,30 @@ class EditProfile extends StatelessWidget{
                 ]
               ),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [ 
                   CircleAvatar(  
                     backgroundColor: Colors.white,  
                     radius: 50,
                     child:Icon(Icons.person, size: 80,color: Colors.grey,), 
                   ),
+                  SizedBox(height: 20,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.edit,color: Colors.white,),
+                      SizedBox(width: 5,),
+                      Text(
+                        "Edit Foto Profile",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing:2,
+                          fontSize: 20
+                        ),
+                      )
+                    ],
+                  )
                 ],
               ), 
             ),
