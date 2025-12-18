@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import '../pagesProfile/editProfile.dart';
 
 class BerandaPage extends StatefulWidget{
   const BerandaPage({super.key});
@@ -179,7 +180,16 @@ class HeaderSection extends StatelessWidget{
                 
                 backgroundColor: Colors.white,  
                 radius: 30,
-                child: const Icon(Icons.person, size: 40,color: Colors.grey,),
+                child: IconButton(
+            
+                  icon: Icon(Icons.person, size: 40,color: Colors.grey,),
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder:  (context) {
+                      return EditProfile();
+                    }));
+                  },
+                )
+                
               ),
             ],
           ),
@@ -262,7 +272,7 @@ class FoodModel{
   final String harga;
   final String rating;
   final String ImageURl;
-  final int jumlah;
+    int jumlah;
 
   FoodModel({
     required  this.title,
@@ -289,7 +299,8 @@ class FoodCard extends StatefulWidget{
 class _FoodCardState extends State<FoodCard> {
   //Variabel untuk mengubah iconFavorite
   bool isFavorite = false;
-  
+  int isTambah = 0;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -418,16 +429,24 @@ class _FoodCardState extends State<FoodCard> {
                 IconButton(
                   icon: Icon(Icons.remove),
                   onPressed: () {
-                    
+                    setState(() {
+                      if(isTambah > 0){
+                        isTambah--; 
+                      }
+                    });
                   },
                 ),
+
                 Text(
-                  widget.food.jumlah.toString(),
+                  "$isTambah"
                 ),
+
                 IconButton(
                   icon: Icon(Icons.add),
                   onPressed: () {
-                   
+                   setState(() {
+                     isTambah ++;
+                   });
                   },
                 ),
 
