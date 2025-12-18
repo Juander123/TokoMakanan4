@@ -110,6 +110,7 @@ class _BerandaPage extends State<BerandaPage>{
 
             const SizedBox(height: 10,),
 
+
             //Kategori Menu
             CategorySelector(
               categories: _Categories, 
