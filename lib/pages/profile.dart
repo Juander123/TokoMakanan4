@@ -251,6 +251,7 @@ class MainContentProfile extends StatelessWidget{
                 ],
               ),
               
+                 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

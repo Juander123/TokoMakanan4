@@ -47,7 +47,7 @@ class _TransaksipageState extends State<Transaksipage> {
       Waktu: "10 - December - 2025"
     ),
     TransactionModel(
-      Harga: "Rp 80000", 
+      Harga: "Rp 85000", 
       Menu: "Mie Goreng, Teh,Jus,Bakso", 
       NoResi: "#0005", 
       TotalPembayaran: "Total Pembayaran", 
