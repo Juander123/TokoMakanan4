@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '../pagesProfile/editProfile.dart';
+import '../pagesProfile/InformasiAkun/editProfile.dart';
 
-class BerandaPage extends StatefulWidget{
-  const BerandaPage({super.key});
+class HomePage extends StatefulWidget{
+  const HomePage({super.key});
   
   @override
   State<StatefulWidget> createState() {
+    
+    
     // TODO: implement createState
-    return _BerandaPage();
+    return _HomePage();
   } 
 }
 
 
-class _BerandaPage extends State<BerandaPage>{
+class _HomePage extends State<HomePage>{
   
   //Query Selector dari kategori 
   int _querySelectorIndex = 0;
@@ -412,12 +414,8 @@ class _FoodCardState extends State<FoodCard> {
 
             SizedBox(height: 8,),
 
-            //harga
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                //Text Harga
-                Text(
+            //Harga
+            Text(
                   widget.food.harga,
                   style: TextStyle(
                     color: Colors.deepOrange,
@@ -425,54 +423,100 @@ class _FoodCardState extends State<FoodCard> {
                     fontSize: 18
                   ),
                 ),
+            
+            SizedBox(height: 5,),
 
-                IconButton(
-                  icon: Icon(Icons.remove),
-                  onPressed: () {
-                    setState(() {
-                      if(isTambah > 0){
-                        isTambah--; 
-                      }
-                    });
-                  },
-                ),
 
-                Text(
-                  "$isTambah"
-                ),
+            //Jumlah Kuantitas dan Harga
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
 
-                IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () {
-                   setState(() {
-                     isTambah ++;
-                   });
-                  },
-                ),
-
-                ElevatedButton(
-                  child: Text(
-                    "Pesan",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold
+                    //Button Minus
+                    InkWell(
+                      child: Icon(Icons.remove),
+                      onTap: () {
+                        setState(() {
+                          if(isTambah > 0){
+                            isTambah--; 
+                          }
+                        });
+                      },
                     ),
+
+                    SizedBox(width: 15,),
+
+                    //Text Kuantitas
+                    Text(
+                      "$isTambah"
+                    ),
+
+                    SizedBox(width: 15,),
+
+                    //Button Plus
+                    InkWell(
+                      child:  Icon(Icons.add),
+                      onTap: () {
+                       setState(() {
+                         isTambah ++;
+                       });
+                      },
+                    ),
+                  ],
+                ),
+
+                SizedBox(
+                  height: 35,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepOrangeAccent,
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)
+                      ),
+                    ),
+                    child: Text(
+                      "Pesan",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                    onPressed: () {
+                      if (isTambah > 0){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              "Berhasil Menambahkan $isTambah ${widget.food.title} ke Keranjang",
+                            ),
+                            backgroundColor: Colors.green,
+                            duration: Duration(seconds: 2),
+                            behavior: SnackBarBehavior.floating,
+                            margin: EdgeInsets.all(20),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content:Text(
+                              "Silahkan Tentukan Jumlah  Dulu",
+                            ),
+                            backgroundColor: Colors.redAccent,
+                            duration: Duration(seconds: 1),
+                          ),
+                        );
+                      };
+                    }
                   ),
-                  
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll<Color>(Colors.deepOrangeAccent.shade200),
-                  ),
-                  onPressed: () {
-                    
-                  },
-                )
-                
+                ),
               ],
             ),  
           ],
         ),
       ),
-      
      ],
     ),
    );

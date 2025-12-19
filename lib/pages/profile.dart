@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
-import '../pagesProfile/editProfile.dart';
+import 'package:flutter/services.dart';
+import '../pagesProfile/InformasiAkun/editProfile.dart';
+import '../pagesProfile/InformasiAkun/alamatPengiriman.dart';
+import '../pagesProfile/InformasiAkun/metodePembayaran.dart';
+import '../pagesProfile/PreferensiAkun/Notifikasi.dart';
+import '../pagesProfile/PreferensiAkun/bahasa.dart';
+import '../pagesProfile/PreferensiAkun/tema.dart';
+import '../pagesProfile/lainya/bantuan_&_Dukungan.dart';
+import '../pagesProfile/lainya/kebijakanPrivasi.dart';
+import '../pagesProfile/lainya/tentangAplikassi.dart';
+
 
 class ProfilePage extends StatelessWidget{
   const ProfilePage ({super.key});
@@ -34,7 +44,10 @@ class HeaderPageProfile extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(20, 50, 20, 20),
       decoration: BoxDecoration(
         color: Colors.deepOrangeAccent,
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20)
+        ),
       ),
       
       child: Column(
@@ -180,7 +193,9 @@ class MainContentProfile extends StatelessWidget{
                   ),
                   IconButton(
                     onPressed: (){
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return Adress();
+                      }));
                     }, 
                     icon: Icon(Icons.arrow_right)
                   ),
@@ -199,7 +214,9 @@ class MainContentProfile extends StatelessWidget{
                   ),
                   IconButton(
                     onPressed: (){
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return PaymentMethod();
+                      }));
                     }, 
                     icon: Icon(Icons.arrow_right)
                   ),
@@ -247,7 +264,9 @@ class MainContentProfile extends StatelessWidget{
                   ),
                   IconButton(
                     onPressed: (){
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return NotificationPage();
+                      }));
                     }, 
                     icon: Icon(Icons.arrow_right)
                   ),
@@ -267,8 +286,10 @@ class MainContentProfile extends StatelessWidget{
                   ),
                   IconButton(
                     onPressed: (){
-
-                    }, 
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return Bahasa();
+                      }));
+                    },  
                     icon: Icon(Icons.arrow_right)
                   ),
                 ],
@@ -286,7 +307,9 @@ class MainContentProfile extends StatelessWidget{
                   ),
                   IconButton(
                     onPressed: (){
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return ThemePage();
+                      }));
                     }, 
                     icon: Icon(Icons.arrow_right)
                   ),
@@ -333,7 +356,9 @@ class MainContentProfile extends StatelessWidget{
                   ),
                   IconButton(
                     onPressed: (){
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return Support();
+                      }));
                     }, 
                     icon: Icon(Icons.arrow_right)
                   ),
@@ -352,7 +377,9 @@ class MainContentProfile extends StatelessWidget{
                   ),
                   IconButton(
                     onPressed: (){
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return About();
+                      }));
                     }, 
                     icon: Icon(Icons.arrow_right)
                   ),
@@ -371,7 +398,9 @@ class MainContentProfile extends StatelessWidget{
                   ),
                   IconButton(
                     onPressed: (){
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return Privacy();
+                      }));
                     }, 
                     icon: Icon(Icons.arrow_right)
                   ),
@@ -403,7 +432,25 @@ class MainContentProfile extends StatelessWidget{
               ),
             ),
             onPressed: () {
-            
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text("Konfirmasi"),
+                  content: Text("Apakah Anda yakin ingin keluar dari aplikasi?"),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(), 
+                      child: Text("Batal", style: TextStyle(color: Colors.grey)),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        SystemNavigator.pop();
+                      },
+                      child: Text("Ya, Keluar", style: TextStyle(color: Colors.red)),
+                    ),
+                  ],
+                ),
+              );
             },
           ),
         ),

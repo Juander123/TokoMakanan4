@@ -9,10 +9,12 @@ void main(){
 
 class MyApp extends StatelessWidget{
   const MyApp ({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
+    
     // TODO: implement build
+
     return MaterialApp(
       title: "TokoMakanan4",
       home: FirstScreen(),
@@ -37,7 +39,7 @@ class _FirsScreen extends State<FirstScreen>{
   int _selectedIndex = 0;
 
   static const List<Widget> _WidgetOption = <Widget>[
-    BerandaPage(),
+    HomePage(),
     Transaksipage(),
     ProfilePage(),  
   ];

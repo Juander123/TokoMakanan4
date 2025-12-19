@@ -15,52 +15,49 @@ class _TransaksipageState extends State<Transaksipage> {
 
   final List<TransactionModel> _TransactionList = [
     TransactionModel(
-      Harga: "Rp 30000", 
-      Menu: "Mie Goreng, Teh", 
-      NoResi: "#0001", 
-      TotalPembayaran: "Total Pembayaran", 
-      StatusPesanan: "Selesai", 
-      Waktu: "10 - December - 2025",
+      harga: "Rp 30000", 
+      menu: "Mie Goreng, Teh", 
+      noResi: "#0001", 
+      totalPembayaran: "Total Pembayaran", 
+      statusPesanan: "Selesai", 
+      waktu: "10 - December - 2025",
     ),
     TransactionModel(
-      Harga: "Rp 80000", 
-      Menu: "Mie Goreng, Teh,Jus,Bakso", 
-      NoResi: "#0002", 
-      TotalPembayaran: "Total Pembayaran", 
-      StatusPesanan: "Selesai", 
-      Waktu: "10 - December - 2025"
+      harga: "Rp 80000", 
+      menu: "Mie Goreng, Teh,Jus,Bakso", 
+      noResi: "#0002", 
+      totalPembayaran: "Total Pembayaran", 
+      statusPesanan: "Selesai", 
+      waktu: "10 - December - 2025"
     ),
     TransactionModel(
-      Harga: "Rp 75000", 
-      Menu: "Mie Goreng, Teh,Jus,Bakso", 
-      NoResi: "#0003", 
-      TotalPembayaran: "Total Pembayaran", 
-      StatusPesanan: "Selesai", 
-      Waktu: "10 - December - 2025"
+      harga: "Rp 75000", 
+      menu: "Mie Goreng, Teh,Jus,Bakso", 
+      noResi: "#0003", 
+      totalPembayaran: "Total Pembayaran", 
+      statusPesanan: "Selesai", 
+      waktu: "10 - December - 2025"
     ),
     TransactionModel(
-      Harga: "Rp 5000", 
-      Menu: "Teh", 
-      NoResi: "#0004", 
-      TotalPembayaran: "Total Pembayaran", 
-      StatusPesanan: "Selesai", 
-      Waktu: "10 - December - 2025"
+      harga: "Rp 5000", 
+      menu: "Teh", 
+      noResi: "#0004", 
+      totalPembayaran: "Total Pembayaran", 
+      statusPesanan: "Selesai", 
+      waktu: "10 - December - 2025"
     ),
     TransactionModel(
-      Harga: "Rp 85000", 
-      Menu: "Mie Goreng, Teh,Jus,Bakso", 
-      NoResi: "#0005", 
-      TotalPembayaran: "Total Pembayaran", 
-      StatusPesanan: "Selesai", 
-      Waktu: "10 - December - 2025"
+      harga: "Rp 85000", 
+      menu: "Mie Goreng, Teh,Jus,Bakso", 
+      noResi: "#0005", 
+      totalPembayaran: "Total Pembayaran", 
+      statusPesanan: "Selesai", 
+      waktu: "10 - December - 2025"
     ),
   ];
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-
-
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -108,6 +105,7 @@ class HeaderSectionTransaksi extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
+      width: double.infinity,
       padding: EdgeInsets.fromLTRB(20, 50, 20, 20),
       decoration: BoxDecoration(
         color: Colors.deepOrangeAccent,
@@ -129,32 +127,35 @@ class HeaderSectionTransaksi extends StatelessWidget{
           
           SizedBox(height: 30,),
           //Kategori Riwawat Transaksi
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: List.generate(CategoryStatus.length, (index){
-              bool isStatus = QueryStatus == index;
-              return GestureDetector(
-                onTap: () => onCategoryTap(index),
-                child: AnimatedContainer(
-                  
-                  padding: EdgeInsets.symmetric(horizontal: 40,vertical: 10),
-                  duration: Duration(milliseconds: 300),
-                  decoration: BoxDecoration(
-                    color: isStatus ? Colors.white : Colors.grey[45],
-                    borderRadius: BorderRadius.circular(15),
-                    border: isStatus ? null : Border.all(color: Colors.white)
-                  ),
-                  child: Text(
-                    CategoryStatus[index],
-                    style: TextStyle(
-                      color: isStatus ? Colors.deepOrangeAccent : Colors.white,
-                      fontWeight: isStatus ? FontWeight.bold : FontWeight.normal
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              
+              children: List.generate(CategoryStatus.length, (index){
+                bool isStatus = QueryStatus == index;
+                return GestureDetector(
+                  onTap: () => onCategoryTap(index),
+                  child: AnimatedContainer(
+                    margin: EdgeInsets.only(right: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 40,vertical: 10),
+                    duration: Duration(milliseconds: 300),
+                    decoration: BoxDecoration(
+                      color: isStatus ? Colors.white : Colors.grey[45],
+                      borderRadius: BorderRadius.circular(15),
+                      border: isStatus ? null : Border.all(color: Colors.white)
+                    ),
+                    child: Text(
+                      CategoryStatus[index],
+                      style: TextStyle(
+                        color: isStatus ? Colors.deepOrangeAccent : Colors.white,
+                        fontWeight: isStatus ? FontWeight.bold : FontWeight.normal
+                      ),
                     ),
                   ),
-                ),
-              );
-            }),
-          ),
+                );
+              }),
+            ),
+          ),          
         ],
       ),
 
@@ -163,20 +164,20 @@ class HeaderSectionTransaksi extends StatelessWidget{
 }
 
 class TransactionModel{
-  final String NoResi;
-  final String StatusPesanan;
-  final String Waktu;
-  final String Menu;
-  final String TotalPembayaran;
-  final String Harga;
+  final String noResi;
+  final String statusPesanan;
+  final String waktu;
+  final String menu;
+  final String totalPembayaran;
+  final String harga;
 
   TransactionModel({
-    required this.Harga,
-    required this.Menu,
-    required this.NoResi,
-    required this.TotalPembayaran,
-    required this.StatusPesanan,
-    required this.Waktu,
+    required this.harga,
+    required this.menu,
+    required this.noResi,
+    required this.totalPembayaran,
+    required this.statusPesanan,
+    required this.waktu,
   });
 }
 
@@ -205,7 +206,7 @@ class CardTransaction extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                Transaction.NoResi,
+                Transaction.noResi,
                 style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -219,7 +220,7 @@ class CardTransaction extends StatelessWidget{
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  Transaction.StatusPesanan,
+                  Transaction.statusPesanan,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.green,
@@ -236,7 +237,7 @@ class CardTransaction extends StatelessWidget{
               Icon(Icons.date_range,color: Colors.grey,size: 18,),
               SizedBox(width: 10,),
               Text(
-                Transaction.Waktu,  
+                Transaction.waktu,  
               ),
             ],
           ),
@@ -244,7 +245,7 @@ class CardTransaction extends StatelessWidget{
           SizedBox(height: 10,),
 
           Text(
-            Transaction.Menu,
+            Transaction.menu,
             style: TextStyle(
               color: Colors.grey,
               
@@ -257,11 +258,11 @@ class CardTransaction extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                Transaction.TotalPembayaran,
+                Transaction.totalPembayaran,
               ),
 
               Text(
-                Transaction.Harga,
+                Transaction.harga,
                 style: TextStyle(
                   color: Colors.deepOrange,
                   fontWeight: FontWeight.bold,
@@ -277,12 +278,11 @@ class CardTransaction extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             
             children: [
-              Container(
-                width: 200,
-                padding: EdgeInsets.only(bottom: 10),
+              Expanded(
                 child: ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(Colors.grey[200]),
+                    backgroundColor: MaterialStateProperty.all(Colors.grey[200]),
+                    padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12))
                   ),
                   child: Text( 
                     "Lihat Detail", 
@@ -296,12 +296,15 @@ class CardTransaction extends StatelessWidget{
                   },
                 ),
               ),  
+
+              SizedBox(width: 15,),
               
-              Container(
-                width: 200,
+
+              Expanded(   
                 child: ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(Colors.deepOrangeAccent[200]),
+                    backgroundColor: MaterialStateProperty.all(Colors.deepOrangeAccent),
+                    padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12))
                   ),
                   child: Text(
                     style: TextStyle(
