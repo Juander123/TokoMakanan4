@@ -20,12 +20,9 @@ class About extends StatelessWidget{
         ),
       ),
 
-      body: Text(
-          textAlign: TextAlign.center,
-          "Akan Dikembangkan Lebih Lanjut lagi",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 34,
+      body: Center(
+          child: Text(
+            "Copyright By Djuanda Harianto"
           ),
         ),
     );

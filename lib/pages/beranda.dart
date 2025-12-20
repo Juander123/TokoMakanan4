@@ -7,8 +7,6 @@ class HomePage extends StatefulWidget{
   
   @override
   State<StatefulWidget> createState() {
-    
-    
     // TODO: implement createState
     return _HomePage();
   } 
@@ -129,11 +127,42 @@ class _HomePage extends State<HomePage>{
             SizedBox(height: 20,),
 
 
+            
             //Konten Utama / FoodCard
-            ..._foodList.map((foodItemm){
+            LayoutBuilder(
+              builder: (BuildContext context,BoxConstraints constraints){
+                if(constraints.maxWidth < 600) {
+                  return ListView(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                       ..._foodList.map((foodItemm){
 
-              return FoodCard(food: foodItemm);
-            })
+                      return FoodCard(food: foodItemm);
+                      })
+                    ]
+                  );
+                } return GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 450,
+                    mainAxisExtent: 220,
+                    crossAxisSpacing: 0,
+                    mainAxisSpacing: 10,
+                  ), 
+                  itemCount: _foodList.length,
+
+                  itemBuilder: (context,index){
+                    return Center(
+                      child: FoodCard(food: _foodList[index]),
+                    );
+                  }
+                );
+              },
+            ),
+            
           ],
         ),
       ),
@@ -341,22 +370,27 @@ class _FoodCardState extends State<FoodCard> {
       Expanded(
         child: Column(  
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             //Text Title & Icon Favorite
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 //Text Title
-                Text(
-                  widget.food.title,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
+                Flexible(
+                  child: Text(
+                    widget.food.title,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
+                
                 //Icon Favorite
                 IconButton(
+                  constraints: BoxConstraints(),
                   icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_outlined,color: isFavorite ? Colors.red : Colors.grey,),
                   
                   onPressed: () { 
@@ -368,7 +402,7 @@ class _FoodCardState extends State<FoodCard> {
               ],
             ),
 
-            SizedBox(height: 8,),
+            SizedBox(height: 4,),
             
             //Nama Kategori
             Container(
@@ -385,7 +419,7 @@ class _FoodCardState extends State<FoodCard> {
               ),
             ),
 
-            SizedBox(height: 8,),
+            SizedBox(height: 4,),
 
             //Rating & Penjualan
             Row(
@@ -400,7 +434,7 @@ class _FoodCardState extends State<FoodCard> {
                   ),
                 ),
 
-                SizedBox(width: 35),
+                SizedBox(width: 10),  
                 
                 //Text penjualan
                 Text(
@@ -412,7 +446,7 @@ class _FoodCardState extends State<FoodCard> {
               ],
             ),
 
-            SizedBox(height: 8,),
+            SizedBox(height: 4,),
 
             //Harga
             Text(
@@ -424,7 +458,7 @@ class _FoodCardState extends State<FoodCard> {
                   ),
                 ),
             
-            SizedBox(height: 5,),
+            SizedBox(height: 4,),
 
 
             //Jumlah Kuantitas dan Harga
@@ -433,10 +467,9 @@ class _FoodCardState extends State<FoodCard> {
               children: [
                 Row(
                   children: [
-
                     //Button Minus
                     InkWell(
-                      child: Icon(Icons.remove),
+                      child: Icon(Icons.remove,size: 18,),
                       onTap: () {
                         setState(() {
                           if(isTambah > 0){
@@ -446,18 +479,21 @@ class _FoodCardState extends State<FoodCard> {
                       },
                     ),
 
-                    SizedBox(width: 15,),
+                    SizedBox(width: 4,),
 
                     //Text Kuantitas
                     Text(
-                      "$isTambah"
+                      "$isTambah",
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
                     ),
 
-                    SizedBox(width: 15,),
+                    SizedBox(width: 4,),
 
                     //Button Plus
                     InkWell(
-                      child:  Icon(Icons.add),
+                      child:  Icon(Icons.add,size: 18,),
                       onTap: () {
                        setState(() {
                          isTambah ++;
@@ -468,11 +504,11 @@ class _FoodCardState extends State<FoodCard> {
                 ),
 
                 SizedBox(
-                  height: 35,
+                  height: 30,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepOrangeAccent,
-                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      padding: EdgeInsets.symmetric(horizontal: 5),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)
                       ),
@@ -482,7 +518,7 @@ class _FoodCardState extends State<FoodCard> {
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 14,
+                        fontSize: 12,
                       ),
                     ),
                     onPressed: () {
