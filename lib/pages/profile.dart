@@ -453,8 +453,7 @@ class MainContentProfile extends StatelessWidget{
               );
             },
           ),
-        ),
-        
+        )
       ],
     );
   }

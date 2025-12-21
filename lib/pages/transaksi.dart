@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class Transaksipage extends StatefulWidget{
   const Transaksipage ({super.key});
@@ -74,9 +75,44 @@ class _TransaksipageState extends State<Transaksipage> {
             
             SizedBox(height: 20,),
 
-            ..._TransactionList.map((TransactionItem){
-              return CardTransaction(Transaction: TransactionItem);
-            }),
+           Padding(
+            padding: const EdgeInsetsGeometry.symmetric(horizontal: 10),
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints){
+                if(constraints.maxWidth < 600){
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: _TransactionList.length,
+                    itemBuilder: (context, index) {
+                      return CardTransaction(Transaction: _TransactionList[index]);
+                    },
+                  );
+                } else {
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 550,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      mainAxisExtent: 240,
+                    ),
+                    itemCount: _TransactionList.length,
+                    itemBuilder: (context,index){
+                      return Center(
+                        child: CardTransaction(Transaction: _TransactionList[index]),
+                      );
+                    },
+                  );
+                }
+              }
+            ),   
+          ),
+
+            
+            
+
             
             SizedBox(height: 10,),
 

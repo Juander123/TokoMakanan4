@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:toko_makanan4/chekout/chekout.dart';
 import '../pagesProfile/InformasiAkun/editProfile.dart';
 
 class HomePage extends StatefulWidget{
@@ -21,7 +22,9 @@ class _HomePage extends State<HomePage>{
   //Nama/List dari Kategori
   final List<String> _Categories = ["Semua", "Makanan", "Minuman","Jus","Sayur",];
 
-  //Variabel Angka Pembelian
+  int totalItemInCart = 0;
+  int totalPriceInCart = 0;
+  bool isCartVisible = false;
   
   //Nama/List dari FoodModel
   final List<FoodModel> _foodList = [
@@ -98,50 +101,64 @@ class _HomePage extends State<HomePage>{
       jumlah: 0,
     ),
   ];
+  
+  void updateCart(int qty,int price){
+    setState(() {
+      totalItemInCart += qty;
+      totalPriceInCart += price;
+      isCartVisible = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //HeaderSection
-            HeaderSection(),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            padding: EdgeInsets.only(bottom: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //HeaderSection
+                HeaderSection(),
 
-            const SizedBox(height: 10,),
-
-
-            //Kategori Menu
-            CategorySelector(
-              categories: _Categories, 
-              selectedIndex: _querySelectorIndex, 
-              onCategoryTap: (index){
-                setState(() {
-                  _querySelectorIndex = index;
-                });
-              }
-            ),
+                const SizedBox(height: 10,),
 
 
-            SizedBox(height: 20,),
+                //Kategori Menu
+                CategorySelector(
+                  categories: _Categories, 
+                  selectedIndex: _querySelectorIndex, 
+                  onCategoryTap: (index){
+                    setState(() {
+                      _querySelectorIndex = index;
+                    });
+                  }
+                ),
 
 
-            
-            //Konten Utama / FoodCard
-            LayoutBuilder(
-              builder: (BuildContext context,BoxConstraints constraints){
-                if(constraints.maxWidth < 600) {
-                  return ListView(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                       ..._foodList.map((foodItemm){
+                SizedBox(height: 20,),
 
-                      return FoodCard(food: foodItemm);
-                      })
-                    ]
-                  );
+                //Konten Utama / FoodCard
+                LayoutBuilder(
+                  builder: (BuildContext context,BoxConstraints constraints){
+                    if(constraints.maxWidth < 600) {
+                      return ListView(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                           ..._foodList.map((foodItemm){      
+                          return FoodCard(
+                            food: foodItemm,
+                            onAddToCart: (qty, price) {
+                               updateCart(qty, price);
+                            }
+                          );
+                          })
+                        ]
+                      );
                 } return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -156,16 +173,113 @@ class _HomePage extends State<HomePage>{
 
                   itemBuilder: (context,index){
                     return Center(
-                      child: FoodCard(food: _foodList[index]),
+                      child: FoodCard(
+                        food: _foodList[index],
+                        onAddToCart: (qty, price) {
+                           updateCart(qty, price);
+                        }
+                      ),
                     );
                   }
                 );
               },
             ),
-            
-          ],
-        ),
+              ],
+            ),
+          ), 
+                        
+
+          if(isCartVisible)
+            Positioned(
+              bottom: 20,
+              right: 20,
+              left: 20,
+              
+              child: Container(
+                height: 75,
+                padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                decoration: BoxDecoration(
+                  color: Colors.deepOrangeAccent,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                      BoxShadow(color: Colors.black, blurRadius: 5,offset: Offset(0, 2)),
+                  ]
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [ 
+                    IconButton(
+
+                      icon: Icon(Icons.close,color: Colors.white,),
+                      onPressed: () {
+                        setState(() {
+                          totalItemInCart = 0;
+                          totalPriceInCart = 0;
+                          isCartVisible = false;
+                        });
+                      },
+                    ),
+                    
+                    Container(
+                      height: 40,
+                      width: 1,
+                      color: Colors.white,
+                    ),
+                    
+                    SizedBox(width: 10,),
+
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "$totalItemInCart di keranjang",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                            ),
+                          ),
+                          Text(
+                            "$totalPriceInCart",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.deepOrangeAccent,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                        elevation: 0,
+                      ),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return Chekout();
+                        }));
+                      },
+                      child: Text(
+                        "Chekout",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold
+                        )
+                      ),
+                    ),
+                    
+                  ],
+                ),
+              )
+            )
+        ],
       ),
+      
+      
     );
   }
 }
@@ -321,7 +435,9 @@ class FoodCard extends StatefulWidget{
 
   final FoodModel food;
 
-  const FoodCard({super.key, required this.food});
+  final Function(int quantity, int totalPrice) onAddToCart;
+
+  const FoodCard({super.key, required this.food,required this.onAddToCart});
 
   @override
   State<FoodCard> createState() => _FoodCardState();
@@ -331,6 +447,11 @@ class _FoodCardState extends State<FoodCard> {
   //Variabel untuk mengubah iconFavorite
   bool isFavorite = false;
   int isTambah = 0;
+
+  int getHargaInt(String hargaStr){
+    String cleanString = hargaStr.replaceAll(RegExp(r'[^0-9]'), '');
+    return int.parse(cleanString);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -461,14 +582,14 @@ class _FoodCardState extends State<FoodCard> {
             SizedBox(height: 4,),
 
 
-            //Jumlah Kuantitas dan Harga
+            //Button Kuantitas dan Harga
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
                     //Button Minus
-                    InkWell(
+                    InkWell(  
                       child: Icon(Icons.remove,size: 18,),
                       onTap: () {
                         setState(() {
@@ -503,6 +624,7 @@ class _FoodCardState extends State<FoodCard> {
                   ],
                 ),
 
+                //Button Pesan
                 SizedBox(
                   height: 30,
                   child: ElevatedButton(
@@ -523,17 +645,11 @@ class _FoodCardState extends State<FoodCard> {
                     ),
                     onPressed: () {
                       if (isTambah > 0){
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              "Berhasil Menambahkan $isTambah ${widget.food.title} ke Keranjang",
-                            ),
-                            backgroundColor: Colors.green,
-                            duration: Duration(seconds: 2),
-                            behavior: SnackBarBehavior.floating,
-                            margin: EdgeInsets.all(20),
-                          ),
-                        );
+                        int hargaSatuan = getHargaInt(widget.food.harga);
+                        int totalHargaItem = hargaSatuan *isTambah;
+
+                        widget.onAddToCart(isTambah,totalHargaItem);
+
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
