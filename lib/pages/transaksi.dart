@@ -317,11 +317,9 @@ class CardTransaction extends StatelessWidget{
                   
                   },
                 ),
-              ),
-              
+              ),             
             ],
           )
-        
         ],
       ),
      
