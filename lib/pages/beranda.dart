@@ -417,7 +417,7 @@ class FoodModel{
   final String rating;
   final String ImageURl;
     int jumlah;
-
+  
   FoodModel({
     required  this.title,
     required this.ImageURl,
