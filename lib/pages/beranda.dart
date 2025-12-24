@@ -139,7 +139,7 @@ class _HomePage extends State<HomePage>{
                 ),
 
 
-                SizedBox(height: 20,),
+                SizedBox(height: 5,),
 
                 //Konten Utama / FoodCard
                 LayoutBuilder(

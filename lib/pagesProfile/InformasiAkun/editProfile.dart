@@ -19,6 +19,26 @@ class EditProfile extends StatelessWidget{
             fontWeight: FontWeight.bold,
           ),
         ),
+
+        actions: [
+        
+         Padding(
+          
+          padding: EdgeInsetsGeometry.symmetric(horizontal: 10,vertical: 10),
+          child: ElevatedButton(
+            
+            child: Text(
+              "Simpan",
+              
+            ),
+            onPressed: () {
+
+            },
+          )
+        ),
+         
+
+        ],
       ),
 
       
@@ -52,18 +72,36 @@ class EditProfile extends StatelessWidget{
                     child:Icon(Icons.person, size: 80,color: Colors.grey,), 
                   ),
                   SizedBox(height: 20,),
+                  
+                  Text(
+                    textAlign: TextAlign.center,
+                    "Djuanda Harianto",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 28,
+                    ),
+                  ),
+                  
+                  SizedBox(height: 20,),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.edit,color: Colors.white,),
-                      SizedBox(width: 5,),
+                      IconButton(
+                        onPressed: () {
+                          
+                        },
+                        icon: Icon(Icons.edit,color: Colors.white,),
+                      ),
+                      SizedBox(width: 10,),
                       Text(
                         "Edit Foto Profile",
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          letterSpacing:2,
-                          fontSize: 20
+                          letterSpacing:1,
+                          fontSize: 22
                         ),
                       )
                     ],
