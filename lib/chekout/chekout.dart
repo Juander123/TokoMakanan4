@@ -1,15 +1,56 @@
 import 'package:flutter/material.dart';
 
-class Chekout extends StatefulWidget{
-  const Chekout({super.key});
-  
-  @override
-  State<Chekout> createState() => _ChekoutState();
+enum LocationType {
+  home,
+  office;
+
+  String get label {
+    switch  (this){
+      case LocationType.home:
+      return "Rumah";
+      case LocationType.office:
+      return "kantor";
+    }
+  }
+  Color get color {
+    switch (this){
+      case  LocationType.home:
+      return  Colors.deepOrangeAccent;
+      case  LocationType.office:
+      return Colors.grey;
+    }
+  }
 }
 
-class _ChekoutState extends State<Chekout> {
+class AddressModel {
+  final String id;
+  final String receipientNamme;
+  final String phoneNumber;
+  final String fullAddress;
+  final LocationType  type;
+  bool  isSelected;
 
+  AddressModel ({
+    required this.fullAddress,
+    required this.isSelected,
+    required this.id,
+    required this.phoneNumber,
+    required this.receipientNamme,
+    required this.type,
+  });
+
+}
+
+
+class ChekoutPage extends StatefulWidget{
+  const ChekoutPage({super.key});
   
+  @override
+  State<ChekoutPage> createState() => _ChekoutPageState();
+}
+
+class _ChekoutPageState extends State<ChekoutPage> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +77,20 @@ class _ChekoutState extends State<Chekout> {
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 15,vertical: 20 ),
         child: Column(
-          children: [
-            
+          children: [ 
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(color: Colors.black,blurRadius: 10,offset: Offset(0, 5)),
+                ]
+              ),
+
+              
+
+
+            )
           ],
         ),
       )
@@ -47,87 +100,3 @@ class _ChekoutState extends State<Chekout> {
 }
 
 
-class AdressCard {
-  final String nama;
-  final String tempat;
-  final String noHp;
-  final String Alamat;
-
-  const AdressCard({
-    required this.nama,
-    required this.Alamat,
-    required this.noHp,
-    required this.tempat,
-
-
-  });
-}
-
-
-class AdreesChekout extends StatefulWidget{
-
-  final AdressCard Adress; 
-
-  const AdreesChekout ({super.key,required this.Adress});
-
-  @override
-  State<AdreesChekout> createState() => _AdreesChekoutState();
-}
-
-class _AdreesChekoutState extends State<AdreesChekout> {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Container(
-
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.3), blurRadius: 10, offset: Offset(0, 5), 
-          )
-        ]
-      ),
-
-      child: Column(
-        children: [
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Icon(Icons.pin_drop_outlined,color: Colors.deepOrangeAccent,),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Alamat Pengiriman",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18
-                      ),
-                    ),
-
-                    Text(
-                      "Ubah",
-                      style: TextStyle(
-                        color: Colors.deepOrangeAccent,
-                        fontWeight: FontWeight.bold
-                      ),
-                    ),
-                  ]
-                ),
-              ),
-            ],
-          ),
-
-          Container(
-            
-          ),
-        ],
-      ),
-    );
-  }
-}

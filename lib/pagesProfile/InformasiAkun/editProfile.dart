@@ -113,9 +113,11 @@ class EditProfile extends StatelessWidget{
             Text(
               textAlign: TextAlign.center,
               "Akan Dikembangkan Lebih Lanjut lagi",
+
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 34,
+                letterSpacing: 4
               ),
             )
           ],

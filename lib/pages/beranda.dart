@@ -260,7 +260,7 @@ class _HomePage extends State<HomePage>{
                       ),
                       onPressed: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return Chekout();
+                          return ChekoutPage();
                         }));
                       },
                       child: Text(
